@@ -6,9 +6,9 @@ import (
 )
 
 // Create random bytes
-func RandomBytes() ([]byte, error){
+func RandomBytes(size int) ([]byte, error){
 	// Creating random 32 byte to use as a key for AES256
-	cryptobytes := make([]byte, 32) 
+	cryptobytes := make([]byte, size) 
 	if _, err := rand.Read(cryptobytes); err != nil {
 		return nil, err
 	}
@@ -16,12 +16,20 @@ func RandomBytes() ([]byte, error){
 }
 
 // Random encryption key may not be what you want in order to be able decrypt text. Use with caution
-func RandomKey() (string, error) {
+func RandomKey(randomBytes... []byte) (string, error) {
+	Cryptobytes  :=	[]byte{}
+	//cryptobytes := []byte{}
 
-	cryptobytes, err := RandomBytes()
-	if (err!=nil) {
-		return "", err
-	}
-	key := hex.EncodeToString( cryptobytes ) 
+	if (len(randomBytes)==0){
+		val, err := RandomBytes(32)
+		if (err!=nil) {
+			return "", err
+		} else {
+			Cryptobytes = val
+		}		
+	} else {
+		Cryptobytes = randomBytes[0]
+	}	
+	key := hex.EncodeToString( Cryptobytes ) 
 	return key, nil
 }
