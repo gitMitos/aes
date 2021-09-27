@@ -26,3 +26,9 @@ func Test_KeyLength(t *testing.T) {
 // 	}	
 
 // }
+
+func Benchmark_Randomkey(b *testing.B){
+	for i:=0; i<b.N; i++ {
+		_, _ = RandomKey()
+	}
+}
