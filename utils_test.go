@@ -1,8 +1,22 @@
 package aes
 
 import (
+	"bytes"
+	"encoding/hex"
 	"testing"
 )
+
+func Test_IsBytesSame(t *testing.T){
+	b, _ := RandomBytes(32)
+	//text := string(b)
+	h, _ := hex.DecodeString( hex.EncodeToString(b) )
+	if ( bytes.Compare(h , b)!=0 ){
+		t.Error("Some problem with byte to hex conversion")
+	}
+	// 
+	//t.Log(b,text, []byte(text), hex.EncodeToString(b), h )
+
+}
 
 func Test_TwoKeysNotSame(t *testing.T) {
 	key1, _ := RandomKey()
