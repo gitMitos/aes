@@ -10,7 +10,7 @@ func Test_IsBytesSame(t *testing.T){
 	b, _ := RandomBytes(32)
 	//text := string(b)
 	h, _ := hex.DecodeString( hex.EncodeToString(b) )
-	if ( bytes.Compare(h , b)!=0 ){
+	if ( !bytes.Equal(h , b) ){
 		t.Error("Some problem with byte to hex conversion")
 	}
 	// 
